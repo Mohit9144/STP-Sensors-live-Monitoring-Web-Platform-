@@ -74,51 +74,50 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
       .join(' ');
 
   // Helper to get button styling based on equipment state and alerts
-  const getButtonStyles = (isEnabled: boolean, equipment: string, alert?: any) => {
-    const colorMap: Record<string, { active: string; inactive: string; border: string }> = {
-      blower: { active: 'bg-gradient-to-br from-cyan-700 to-cyan-950 border-cyan-700 shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_2px_10px_rgba(0,0,0,0.5)]', inactive: 'bg-gradient-to-br from-cyan-50 to-cyan-100/50 border-cyan-300 shadow-[inset_0_1px_rgba(255,255,255,0.5)]', border: 'border-cyan-300' },
-      intake: { active: 'bg-gradient-to-br from-amber-700 to-orange-950 border-orange-700 shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_2px_10px_rgba(0,0,0,0.5)]', inactive: 'bg-gradient-to-br from-orange-50 to-orange-100/50 border-orange-300 shadow-[inset_0_1px_rgba(255,255,255,0.5)]', border: 'border-orange-300' },
-      return: { active: 'bg-gradient-to-br from-amber-700 to-orange-950 border-orange-700 shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_2px_10px_rgba(0,0,0,0.5)]', inactive: 'bg-gradient-to-br from-orange-50 to-orange-100/50 border-orange-300 shadow-[inset_0_1px_rgba(255,255,255,0.5)]', border: 'border-orange-300' },
-      dosing: { active: 'bg-gradient-to-br from-blue-800 to-blue-950 border-blue-700 shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_2px_10px_rgba(0,0,0,0.5)]', inactive: 'bg-gradient-to-br from-blue-50 to-blue-100/50 border-blue-300 shadow-[inset_0_1px_rgba(255,255,255,0.5)]', border: 'border-blue-300' },
-      valve: { active: 'bg-gradient-to-br from-purple-800 to-purple-950 border-purple-700 shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_2px_10px_rgba(0,0,0,0.5)]', inactive: 'bg-gradient-to-br from-purple-50 to-purple-100/50 border-purple-300 shadow-[inset_0_1px_rgba(255,255,255,0.5)]', border: 'border-purple-300' },
-    };
+      const getButtonStyles = (isEnabled: boolean, equipment: string, alert?: any) => {
+      const colorMap: Record<string, { active: string; inactive: string; border: string }> = {
+        blower: { active: 'bg-emerald-50 border-emerald-300 shadow-[inset_0_2px_10px_rgba(16,185,129,0.15)] text-emerald-950', inactive: 'bg-white border-slate-200 shadow-sm text-slate-500', border: 'border-emerald-300' },
+        intake: { active: 'bg-blue-50 border-blue-300 shadow-[inset_0_2px_10px_rgba(59,130,246,0.15)] text-blue-950', inactive: 'bg-white border-slate-200 shadow-sm text-slate-500', border: 'border-blue-300' },
+        return: { active: 'bg-cyan-50 border-cyan-300 shadow-[inset_0_2px_10px_rgba(6,182,212,0.15)] text-cyan-950', inactive: 'bg-white border-slate-200 shadow-sm text-slate-500', border: 'border-cyan-300' },
+        dosing: { active: 'bg-purple-50 border-purple-300 shadow-[inset_0_2px_10px_rgba(168,85,247,0.15)] text-purple-950', inactive: 'bg-white border-slate-200 shadow-sm text-slate-500', border: 'border-purple-300' },
+        valve: { active: 'bg-teal-50 border-teal-300 shadow-[inset_0_2px_10px_rgba(20,184,166,0.15)] text-teal-950', inactive: 'bg-white border-slate-200 shadow-sm text-slate-500', border: 'border-teal-300' },
+      };
 
-    const colors = colorMap[equipment];
-    
-    // If alert exists, use alert styling
-    if (alert) {
-      if (alert.severity === 'critical') {
-        return {
-          bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-800 via-red-950 to-red-950 shadow-[inset_0_1px_rgba(255,255,255,0.2),_0_0_15px_rgba(239,68,68,0.5)]',
-          border: 'border-red-600 border border-t-red-500',
-          text: 'text-white',
-          statusColor: 'bg-red-950/50 border-red-500 text-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]',
-          isAlert: true,
-          severity: alert.severity,
-          dotColor: 'bg-red-500 shadow-[0_0_5px_rgba(239,68,68,1)]'
-        };
-      } else if (alert.severity === 'high') {
-        return {
-          bg: 'bg-gradient-to-b from-orange-700 to-orange-950 shadow-[inset_0_1px_rgba(255,255,255,0.2),_0_4px_15px_rgba(249,115,22,0.3)]',
-          border: 'border-orange-600 border border-t-orange-500', 
-          text: 'text-white',
-          statusColor: 'bg-orange-950/50 border-orange-500 text-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.6)]',
-          isAlert: true,
-          severity: alert.severity,
-          dotColor: 'bg-orange-500 shadow-[0_0_5px_rgba(249,115,22,1)]'
-        };
+      const colors = colorMap[equipment];
+
+      if (alert) {
+        if (alert.severity === 'critical') {
+          return {
+            bg: 'bg-rose-50 shadow-[0_4px_15px_rgba(225,29,72,0.1)]',
+            border: 'border-rose-300 border-2',
+            text: 'text-rose-950 font-extrabold',
+            statusColor: 'bg-white border rounded border-rose-200 text-rose-700 font-bold px-1.5 py-0.5',
+            isAlert: true,
+            severity: alert.severity,
+            dotColor: 'bg-rose-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'
+          };
+        } else if (alert.severity === 'high') {
+          return {
+            bg: 'bg-amber-50 shadow-[0_4px_15px_rgba(245,158,11,0.1)]',
+            border: 'border-amber-300 border-2',
+            text: 'text-amber-950 font-extrabold',
+            statusColor: 'bg-white border rounded border-amber-200 text-amber-700 font-bold px-1.5 py-0.5',
+            isAlert: true,
+            severity: alert.severity,
+            dotColor: 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]'
+          };
+        }
       }
-    }
 
-    return {
-      bg: isEnabled ? `${colors.active}` : `${colors.inactive}`,
-      border: isEnabled ? 'border border-t-white/20' : 'border border-b-slate-200',
-      text: isEnabled ? 'text-white font-semibold drop-shadow-md' : 'text-slate-700 font-semibold drop-shadow-sm',
-      statusColor: isEnabled ? 'bg-black/20 border-black/30 text-emerald-400 border' : 'bg-white/50 border-slate-200 text-slate-500 border',
-      isAlert: false,
-      dotColor: isEnabled ? 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,1)]' : 'bg-slate-400'
+      return {
+        bg: isEnabled ? colors.active : colors.inactive,
+        border: isEnabled ? "border-2 " + colors.border : "border border-slate-200 shadow-sm",
+        text: "font-extrabold " + (isEnabled ? "" : "text-slate-600"),
+        statusColor: isEnabled ? 'bg-white rounded border border-emerald-200 text-emerald-700 font-bold px-1.5 py-0.5' : 'bg-slate-50 rounded border border-slate-200 text-slate-500 font-bold px-1.5 py-0.5',
+        dotColor: isEnabled ? 'bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.8)]' : 'bg-slate-400 opacity-50',
+        isAlert: false
+      };
     };
-  };
 
   const sections = ['All', ...Array.from(new Set(sensors.map(s => s.plant_section)))];
 
@@ -761,3 +760,4 @@ const ValveIcon: React.FC<{ isActive: boolean; hasMalfunction?: boolean }> = ({ 
     )}
   </svg>
 );
+
