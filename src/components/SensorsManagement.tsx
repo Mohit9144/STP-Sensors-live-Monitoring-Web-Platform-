@@ -322,13 +322,13 @@ export const SensorsManagement: React.FC = () => {
                       <span className="text-[10px] text-slate-500 ml-1">{reading.unit}</span>
                     </td>
                     <td className="px-6 py-3 text-right">
-                      {reading.quality_flag === 'good' ? (
-                        <span className="inline-flex items-center justify-center px-2 py-1 rounded-md bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-wider">
-                          Good
-                        </span>
-                      ) : (
+                      {reading.quality_flag?.toLowerCase() === 'bad' ? (
                         <span className="inline-flex items-center justify-center px-2 py-1 rounded-md bg-rose-50 text-rose-700 text-[10px] font-bold uppercase tracking-wider">
                           Bad
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center justify-center px-2 py-1 rounded-md bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-wider">
+                          Good
                         </span>
                       )}
                     </td>

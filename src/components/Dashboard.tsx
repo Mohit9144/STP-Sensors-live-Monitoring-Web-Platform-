@@ -77,16 +77,16 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
       const getButtonStyles = (isEnabled: boolean, equipment: string, alert?: any) => {
     const theme: Record<string, { active: string; inactive: string; text: string; dot: string }> = {
       blower: { 
-        active: 'bg-gradient-to-br from-[#080e1a] to-[#03060a] border-[#0a1121] shadow-[inset_0_1px_rgba(255,255,255,0.05),_0_4px_15px_rgba(0,0,0,0.6)]',
-        inactive: 'bg-[#080e1a]/80 border-[#0a1121] shadow-[0_2px_5px_rgba(0,0,0,0.3)]',
-        text: 'text-[#00e1ff]',  
-        dot: 'bg-[#00e1ff] shadow-[0_0_8px_rgba(0,225,255,0.8)]'
+        active: 'bg-gradient-to-br from-[#064e3b] to-[#022c22] border-[#065f46] shadow-[inset_0_1px_rgba(255,255,255,0.05),_0_4px_15px_rgba(0,0,0,0.6)]',
+        inactive: 'bg-[#064e3b]/80 border-[#065f46] shadow-[0_2px_5px_rgba(0,0,0,0.3)]',
+        text: 'text-[#5eead4]',  
+        dot: 'bg-[#5eead4] shadow-[0_0_8px_rgba(94,234,212,0.8)]'
       },
       intake: { 
-        active: 'bg-gradient-to-br from-[#853400] to-[#3a1500] border-[#933d00] shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_4px_15px_rgba(0,0,0,0.6)]',
-        inactive: 'bg-[#3a1500]/80 border-[#4a1c00] shadow-[0_2px_5px_rgba(0,0,0,0.3)]',
-        text: 'text-[#00ffd5]',
-        dot: 'bg-[#00ffd5] shadow-[0_0_8px_rgba(0,255,213,0.8)]'
+        active: 'bg-gradient-to-br from-[#134e4a] to-[#042f2e] border-[#0f766e] shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_4px_15px_rgba(0,0,0,0.6)]',
+        inactive: 'bg-[#134e4a]/80 border-[#0f766e] shadow-[0_2px_5px_rgba(0,0,0,0.3)]',
+        text: 'text-[#2dd4bf]',
+        dot: 'bg-[#2dd4bf] shadow-[0_0_8px_rgba(45,212,191,0.8)]'
       },
       return: { 
         active: 'bg-gradient-to-br from-[#853400] to-[#3a1500] border-[#933d00] shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_4px_15px_rgba(0,0,0,0.6)]',
@@ -111,8 +111,8 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
     const colors = theme[equipment];
 
     return {
-      bg: isEnabled ? colors.active : colors.inactive,
-      border: isEnabled ? 'border border-t-white/10' : 'border border-white/5 opacity-90',
+      bg: colors.active,
+      border: isEnabled ? 'border border-t-white/50 border-white/20' : 'border border-transparent border-white/5',
       text: 'text-white font-black drop-shadow-md',
       statusColor: isEnabled ? 'bg-black/40 border-black/50 ' + colors.text + ' border font-bold' : 'bg-black/20 border-black/30 text-white/50 border font-bold',
       dotColor: isEnabled ? colors.dot : 'bg-slate-500/50',
@@ -602,68 +602,44 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
 };
 
 const TurbineIcon: React.FC<{ isActive: boolean; hasMalfunction?: boolean }> = ({ isActive, hasMalfunction }) => (
-  <svg
-    viewBox="0 0 48 48"
-    className={cn("w-full h-full")}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    {/* Outer complex casing with metallic effect */}
+  <svg viewBox="0 0 48 48" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <radialGradient id="turbineActive" cx="50%" cy="50%">
-        <stop offset="0%" stopColor={hasMalfunction ? '#ef4444' : isActive ? '#06b6d4' : '#e5e7eb'} />
-        <stop offset="100%" stopColor={hasMalfunction ? '#dc2626' : isActive ? '#0369a1' : '#cbd5e1'} />
+      <radialGradient id="turbineActiveGradient" cx="50%" cy="50%">
+        <stop offset="0%" stopColor={hasMalfunction ? '#f87171' : isActive ? '#06b6d4' : '#e5e7eb'} />
+        <stop offset="100%" stopColor={hasMalfunction ? '#dc2626' : isActive ? '#0284c7' : '#cbd5e1'} />
       </radialGradient>
+      <linearGradient id="turbineHousing" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor={hasMalfunction ? 'rgba(239, 68, 68, 0.2)' : isActive ? 'rgba(6, 182, 212, 0.15)' : 'rgba(229, 231, 235, 0.2)'} />
+        <stop offset="100%" stopColor={hasMalfunction ? 'rgba(220, 38, 38, 0.1)' : isActive ? 'rgba(2, 132, 199, 0.1)' : 'rgba(203, 213, 225, 0.1)'} />
+      </linearGradient>
     </defs>
 
-    {/* Multi-ring casing */}
-    <circle cx="24" cy="24" r="22" stroke={hasMalfunction ? '#ef4444' : isActive ? '#0ea5e9' : '#cbd5e1'} strokeWidth="2.5" opacity={hasMalfunction ? '1' : '0.9'} className={hasMalfunction ? 'animate-malfunction-blink' : ''} />
-    <circle cx="24" cy="24" r="19.5" stroke={hasMalfunction ? '#f87171' : isActive ? '#06b6d4' : '#a1a5b4'} strokeWidth="1" opacity={hasMalfunction ? '0.8' : '0.6'} />
-    <circle cx="24" cy="24" r="17" stroke={hasMalfunction ? '#ef4444' : isActive ? '#22d3ee' : '#cbd5e1'} strokeWidth="1.5" opacity={hasMalfunction ? '0.6' : isActive ? 0.8 : 0.4} />
+    {/* Background Housing */}
+    <circle cx="24" cy="24" r="20" fill="url(#turbineHousing)" stroke={hasMalfunction ? '#ef4444' : isActive ? '#06b6d4' : '#cbd5e1'} strokeWidth="2" className={hasMalfunction ? 'animate-malfunction-blink' : ''} />
+    
+    {/* Air Intake Vents/Flanges */}
+    <path d="M 20 -2 L 28 -2 L 28 6 L 20 6 Z" fill={hasMalfunction ? '#f87171' : isActive ? '#67e8f9' : '#cbd5e1'} opacity="0.8" />
+    <path d="M 20 42 L 28 42 L 28 50 L 20 50 Z" fill={hasMalfunction ? '#f87171' : isActive ? '#67e8f9' : '#cbd5e1'} opacity="0.8" />
 
-    {/* Inner hub assembly */}
-    <circle cx="24" cy="24" r="4.5" fill={hasMalfunction ? '#ef4444' : isActive ? '#06b6d4' : '#b0b9c3'} />
-    <circle cx="24" cy="24" r="3" fill={hasMalfunction ? '#fca5a5' : isActive ? '#cffafe' : '#e5e7eb'} opacity={hasMalfunction ? '0.6' : '0.8'} />
-    <circle cx="24" cy="24" r="1.5" fill={hasMalfunction ? '#7f1d1d' : isActive ? '#0369a1' : '#9ca3af'} />
-
-    {/* Complex rotating propeller assembly - 6 blades outer */}
-    <g className={isActive ? 'animate-turbine-spin-fast' : ''}>
-      {/* Blade 1 */}
-      <path d="M 24 24 L 24 6 Q 26 12 26 20 L 24 24 Z" fill={hasMalfunction ? '#ef4444' : isActive ? '#06b6d4' : '#cbd5e1'} opacity={hasMalfunction ? 0.7 : isActive ? 0.95 : 0.5} filter={hasMalfunction ? 'drop-shadow(0 2px 5px rgba(239, 68, 68, 0.7))' : isActive ? 'drop-shadow(0 2px 5px rgba(6, 182, 212, 0.7))' : ''} />
-      {/* Blade 2 */}
-      <path d="M 24 24 L 36 24 Q 30 26 24 26 L 24 24 Z" fill={hasMalfunction ? '#f87171' : isActive ? '#0ea5e9' : '#a1a5b4'} opacity={hasMalfunction ? 0.65 : isActive ? 0.9 : 0.45} filter={hasMalfunction ? 'drop-shadow(0 2px 5px rgba(248, 113, 113, 0.6))' : isActive ? 'drop-shadow(0 2px 5px rgba(14, 165, 233, 0.6))' : ''} />
-      {/* Blade 3 */}
-      <path d="M 24 24 L 24 42 Q 22 36 22 28 L 24 24 Z" fill={hasMalfunction ? '#ef4444' : isActive ? '#06b6d4' : '#cbd5e1'} opacity={hasMalfunction ? 0.7 : isActive ? 0.95 : 0.5} filter={hasMalfunction ? 'drop-shadow(0 2px 5px rgba(239, 68, 68, 0.7))' : isActive ? 'drop-shadow(0 2px 5px rgba(6, 182, 212, 0.7))' : ''} />
-      {/* Blade 4 */}
-      <path d="M 24 24 L 12 24 Q 18 22 24 22 L 24 24 Z" fill={hasMalfunction ? '#f87171' : isActive ? '#0ea5e9' : '#a1a5b4'} opacity={hasMalfunction ? 0.65 : isActive ? 0.9 : 0.45} filter={hasMalfunction ? 'drop-shadow(0 2px 5px rgba(248, 113, 113, 0.6))' : isActive ? 'drop-shadow(0 2px 5px rgba(14, 165, 233, 0.6))' : ''} />
-      {/* Blade 5 - Diagonal */}
-      <path d="M 24 24 L 33 31 Q 29 28 26 25 L 24 24 Z" fill={hasMalfunction ? '#ef4444' : isActive ? '#22d3ee' : '#cbd5e1'} opacity={hasMalfunction ? 0.6 : isActive ? 0.85 : 0.4} filter={hasMalfunction ? 'drop-shadow(0 2px 4px rgba(239, 68, 68, 0.5))' : isActive ? 'drop-shadow(0 2px 4px rgba(34, 211, 238, 0.5))' : ''} />
-      {/* Blade 6 - Diagonal */}
-      <path d="M 24 24 L 15 33 Q 18 29 22 26 L 24 24 Z" fill={hasMalfunction ? '#ef4444' : isActive ? '#22d3ee' : '#cbd5e1'} opacity={hasMalfunction ? 0.6 : isActive ? 0.85 : 0.4} filter={hasMalfunction ? 'drop-shadow(0 2px 4px rgba(239, 68, 68, 0.5))' : isActive ? 'drop-shadow(0 2px 4px rgba(34, 211, 238, 0.5))' : ''} />
+    {/* Inner Volute Casing */}
+    <circle cx="24" cy="24" r="16" stroke={hasMalfunction ? '#fca5a5' : isActive ? '#67e8f9' : '#a1a5b4'} strokeWidth="1.5" fill="none" opacity="0.8" />
+    
+    {/* Central Rotating Turbine Impeller */}
+    <g className={isActive ? 'animate-[spin_1.5s_linear_infinite]' : ''} style={{ transformOrigin: '24px 24px' }}>
+      {/* Main Blades */}
+      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+        <path key={i} d="M 24 21 C 28 14 27 10 24 6 C 21 10 20 14 24 21 Z" fill="url(#turbineActiveGradient)" opacity={isActive ? 0.9 : 0.5} transform={`rotate(${angle} 24 24)`} filter={isActive ? 'drop-shadow(0 2px 4px rgba(6, 182, 212, 0.4))' : ''} />
+      ))}
+      <circle cx="24" cy="24" r="7" fill={hasMalfunction ? '#991b1b' : isActive ? '#0c4a6e' : '#6b7280'} />
+      <circle cx="24" cy="24" r="4" fill="#fff" opacity="0.8" />
+      <circle cx="24" cy="24" r="1.5" fill={hasMalfunction ? '#7f1d1d' : isActive ? '#082f49' : '#4b5563'} />
     </g>
 
-    {/* Counter-rotating inner turbine - 4 blades */}
-    <g className={isActive && !hasMalfunction ? 'animate-turbine-spin-reverse-fast' : ''}>
-      {/* Inner Blade 1 */}
-      <path d="M 24 24 L 24 10 Q 25 16 25 21 L 24 24 Z" fill={hasMalfunction ? '#fca5a5' : isActive ? '#cffafe' : '#e0e7ff'} opacity={hasMalfunction ? 0.5 : isActive ? 0.8 : 0.25} />
-      {/* Inner Blade 2 */}
-      <path d="M 24 24 L 34 24 Q 28 25 24 26 L 24 24 Z" fill={hasMalfunction ? '#ef4444' : isActive ? '#22d3ee' : '#cbd5e1'} opacity={hasMalfunction ? 0.6 : isActive ? 0.75 : 0.3} />
-      {/* Inner Blade 3 */}
-      <path d="M 24 24 L 24 38 Q 23 32 23 27 L 24 24 Z" fill={hasMalfunction ? '#fca5a5' : isActive ? '#cffafe' : '#e0e7ff'} opacity={hasMalfunction ? 0.5 : isActive ? 0.8 : 0.25} />
-      {/* Inner Blade 4 */}
-      <path d="M 24 24 L 14 24 Q 20 23 24 22 L 24 24 Z" fill={hasMalfunction ? '#ef4444' : isActive ? '#22d3ee' : '#cbd5e1'} opacity={hasMalfunction ? 0.6 : isActive ? 0.75 : 0.3} />
-    </g>
-
-    {/* Complex decorative elements */}
+    {/* Glowing Status Effects */}
     {(isActive || hasMalfunction) && (
       <>
-        {/* Multiple layered glow rings */}
-        <circle cx="24" cy="24" r="18" stroke={hasMalfunction ? '#ef4444' : '#06b6d4'} strokeWidth="0.8" opacity={hasMalfunction ? '0.5' : '0.35'} className={hasMalfunction ? 'animate-error-glow' : 'animate-turbine-glow-outer'} />
-        <circle cx="24" cy="24" r="13" stroke={hasMalfunction ? '#f87171' : '#0ea5e9'} strokeWidth="0.8" opacity={hasMalfunction ? '0.6' : '0.45'} className={hasMalfunction ? 'animate-error-glow' : 'animate-turbine-glow-inner'} />
-        <circle cx="24" cy="24" r="8" stroke={hasMalfunction ? '#ef4444' : '#22d3ee'} strokeWidth="0.6" opacity={hasMalfunction ? '0.4' : '0.3'} className={hasMalfunction ? 'animate-malfunction-blink' : 'animate-turbine-glow-inner'} />
-        
-        {/* Pulsing center dot */}
-        <circle cx="24" cy="24" r="2" fill={hasMalfunction ? '#dc2626' : '#fbbf24'} opacity={hasMalfunction ? '0.8' : '0.6'} className={hasMalfunction ? 'animate-malfunction-blink' : 'animate-pulse'} />
+        <circle cx="24" cy="24" r="18" stroke={hasMalfunction ? '#ef4444' : '#06b6d4'} strokeWidth="0.8" opacity={hasMalfunction ? '0.5' : '0.35'} className={hasMalfunction ? 'animate-pulse' : 'animate-ping'} style={{ animationDuration: '3s' }} />
+        <circle cx="24" cy="24" r="13" stroke={hasMalfunction ? '#f87171' : '#0ea5e9'} strokeWidth="0.8" opacity={hasMalfunction ? '0.6' : '0.45'} />
       </>
     )}
   </svg>
@@ -682,21 +658,21 @@ const PumpIcon: React.FC<{ isActive: boolean; hasMalfunction?: boolean }> = ({ i
     <circle cx="24" cy="24" r="20" fill={hasMalfunction ? 'rgba(239, 68, 68, 0.15)' : isActive ? 'rgba(234, 88, 12, 0.1)' : 'rgba(229, 231, 235, 0.2)'} stroke={hasMalfunction ? '#ef4444' : isActive ? '#ea580c' : '#cbd5e1'} strokeWidth="2" className={hasMalfunction ? 'animate-malfunction-blink' : ''} />
     
     {/* Flanges/Pipes */}
-    <path d="M -2 20 L 6 20 L 6 28 L -2 28 Z" fill={hasMalfunction ? '#f87171' : isActive ? '#fdba74' : '#cbd5e1'} opacity="0.6" />
-    <path d="M 42 20 L 50 20 L 50 28 L 42 28 Z" fill={hasMalfunction ? '#f87171' : isActive ? '#fdba74' : '#cbd5e1'} opacity="0.6" />
+    <path d="M -2 20 L 6 20 L 6 28 L -2 28 Z" fill={hasMalfunction ? '#f87171' : isActive ? '#fdba74' : '#cbd5e1'} opacity="0.8" />
+    <path d="M 42 20 L 50 20 L 50 28 L 42 28 Z" fill={hasMalfunction ? '#f87171' : isActive ? '#fdba74' : '#cbd5e1'} opacity="0.8" />
 
     {/* Inner Volute Casing */}
     <circle cx="24" cy="24" r="16" stroke={hasMalfunction ? '#fca5a5' : isActive ? '#fdba74' : '#a1a5b4'} strokeWidth="1.5" fill="none" opacity="0.8" />
     
     {/* Central Rotating Mechanical Impeller */}
-    <g className={isActive ? 'animate-turbine-spin-fast' : ''} style={{ transformOrigin: '24px 24px' }}>
+    <g className={isActive ? 'animate-[spin_1.5s_linear_infinite]' : ''} style={{ transformOrigin: '24px 24px' }}>
       {/* Main Blades */}
       {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
         <path key={i} d="M 24 21 C 28 14 27 10 24 6 C 21 10 20 14 24 21 Z" fill="url(#pumpActiveGradient)" opacity={isActive ? 0.9 : 0.5} transform={`rotate(${angle} 24 24)`} filter={isActive ? 'drop-shadow(0 2px 4px rgba(234, 88, 12, 0.4))' : ''} />
       ))}
       {/* Inner ring */}
       <circle cx="24" cy="24" r="7" fill={hasMalfunction ? '#991b1b' : isActive ? '#9a3412' : '#6b7280'} />
-      <circle cx="24" cy="24" r="4" fill="#fff" opacity="0.6" />
+      <circle cx="24" cy="24" r="4" fill="#fff" opacity="0.8" />
       <circle cx="24" cy="24" r="1.5" fill={hasMalfunction ? '#7f1d1d' : isActive ? '#7c2d12' : '#4b5563'} />
     </g>
 
@@ -720,7 +696,7 @@ const ValveIcon: React.FC<{ isActive: boolean; hasMalfunction?: boolean }> = ({ 
     </defs>
 
     {/* Base Pipe Line */}
-    <path d="M 2 24 L 46 24" stroke={hasMalfunction ? '#fca5a5' : isActive ? '#d8b4fe' : '#cbd5e1'} strokeWidth="8" opacity="0.4" />
+    <path d="M 2 24 L 46 24" stroke={hasMalfunction ? '#fca5a5' : isActive ? '#d8b4fe' : '#cbd5e1'} strokeWidth="8" opacity="0.8" />
     <path d="M 2 18 L 8 18 L 8 30 L 2 30 Z" fill={hasMalfunction ? '#ef4444' : isActive ? '#a855f7' : '#9ca3af'} />
     <path d="M 40 18 L 46 18 L 46 30 L 40 30 Z" fill={hasMalfunction ? '#ef4444' : isActive ? '#a855f7' : '#9ca3af'} />
 
@@ -731,7 +707,7 @@ const ValveIcon: React.FC<{ isActive: boolean; hasMalfunction?: boolean }> = ({ 
     <rect x="22" y="6" width="4" height="8" fill={hasMalfunction ? '#dc2626' : isActive ? '#7e22ce' : '#6b7280'} />
 
     {/* Mechanical Rotary Actuator / Wheel */}
-    <g className={isActive ? 'animate-turbine-spin-fast' : ''} style={{ transformOrigin: '24px 10px' }}>
+    <g className={isActive ? 'animate-[spin_1.5s_linear_infinite]' : ''} style={{ transformOrigin: '24px 10px' }}>
       {/* Wheel Outer Ring */}
       <circle cx="24" cy="10" r="8" stroke="url(#valveActiveGradient)" strokeWidth="2.5" fill="none" opacity={isActive ? 0.9 : 0.6} />
       <circle cx="24" cy="10" r="6" stroke={hasMalfunction ? '#fca5a5' : isActive ? '#d8b4fe' : '#d1d5db'} strokeWidth="0.5" fill="none" />
@@ -749,14 +725,14 @@ const ValveIcon: React.FC<{ isActive: boolean; hasMalfunction?: boolean }> = ({ 
     {/* Animated Inner Gate */}
     <g className={isActive && !hasMalfunction ? 'animate-pulse' : ''}>
       <circle cx="24" cy="22" r="4" fill={hasMalfunction ? '#dc2626' : isActive ? '#10b981' : '#9ca3af'} />
-      <circle cx="24" cy="22" r="2" fill="#fff" opacity="0.6" />
+      <circle cx="24" cy="22" r="2" fill="#fff" opacity="0.8" />
     </g>
 
     {/* Glow */}
     {(isActive || hasMalfunction) && (
       <>
         <circle cx="24" cy="10" r="12" stroke={hasMalfunction ? '#ef4444' : '#a855f7'} strokeWidth="0.8" opacity={hasMalfunction ? '0.5' : '0.4'} className={hasMalfunction ? 'animate-error-glow' : 'animate-turbine-glow-outer'} />
-        <circle cx="24" cy="22" r="8" stroke={hasMalfunction ? '#f87171' : '#10b981'} strokeWidth="0.6" opacity="0.6" className={hasMalfunction ? 'animate-error-glow' : 'animate-turbine-glow-inner'} />
+        <circle cx="24" cy="22" r="8" stroke={hasMalfunction ? '#f87171' : '#10b981'} strokeWidth="0.6" opacity="0.8" className={hasMalfunction ? 'animate-error-glow' : 'animate-turbine-glow-inner'} />
       </>
     )}
   </svg>

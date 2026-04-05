@@ -37,7 +37,11 @@ function normalizeReading(row: any): SensorReading | null {
     plant_section: String(row?.plant_section ?? matchedMock?.plant_section ?? 'Unknown'),
     value: Number(row?.value ?? 0),
     unit: String(row?.unit ?? matchedMock?.unit ?? ''),
-    quality_flag: (row?.quality_flag ?? 'good') as SensorReading['quality_flag'],
+    quality_flag: (() => {
+      const q = row?.quality_flag;
+      if (!q || String(q).trim() === '' || String(q).toLowerCase() === 'null') return 'good';
+      return String(q).toLowerCase() as SensorReading['quality_flag'];
+    })(),
     status_flag: String(row?.status_flag ?? 'active'),
     delay_seconds: Number(row?.delay_seconds ?? 0),
   };
