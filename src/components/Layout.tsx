@@ -105,7 +105,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeSection, setActi
   );
 
   return (
-    <div className="min-h-screen bg-transparent flex">
+    <div className="h-screen bg-transparent flex overflow-hidden">
       {isMobileSidebarOpen && (
         <button
           className="fixed inset-0 bg-slate-900/30 backdrop-blur-[1px] z-40 lg:hidden"
