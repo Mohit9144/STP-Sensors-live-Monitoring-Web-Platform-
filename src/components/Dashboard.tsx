@@ -75,50 +75,51 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
 
   // Helper to get button styling based on equipment state and alerts
       const getButtonStyles = (isEnabled: boolean, equipment: string, alert?: any) => {
-      const colorMap: Record<string, { active: string; inactive: string; border: string }> = {
-        blower: { active: 'bg-emerald-50 border-emerald-300 shadow-[inset_0_2px_10px_rgba(16,185,129,0.15)] text-emerald-950', inactive: 'bg-white border-slate-200 shadow-sm text-slate-500', border: 'border-emerald-300' },
-        intake: { active: 'bg-blue-50 border-blue-300 shadow-[inset_0_2px_10px_rgba(59,130,246,0.15)] text-blue-950', inactive: 'bg-white border-slate-200 shadow-sm text-slate-500', border: 'border-blue-300' },
-        return: { active: 'bg-cyan-50 border-cyan-300 shadow-[inset_0_2px_10px_rgba(6,182,212,0.15)] text-cyan-950', inactive: 'bg-white border-slate-200 shadow-sm text-slate-500', border: 'border-cyan-300' },
-        dosing: { active: 'bg-purple-50 border-purple-300 shadow-[inset_0_2px_10px_rgba(168,85,247,0.15)] text-purple-950', inactive: 'bg-white border-slate-200 shadow-sm text-slate-500', border: 'border-purple-300' },
-        valve: { active: 'bg-teal-50 border-teal-300 shadow-[inset_0_2px_10px_rgba(20,184,166,0.15)] text-teal-950', inactive: 'bg-white border-slate-200 shadow-sm text-slate-500', border: 'border-teal-300' },
-      };
-
-      const colors = colorMap[equipment];
-
-      if (alert) {
-        if (alert.severity === 'critical') {
-          return {
-            bg: 'bg-rose-50 shadow-[0_4px_15px_rgba(225,29,72,0.1)]',
-            border: 'border-rose-300 border-2',
-            text: 'text-rose-950 font-extrabold',
-            statusColor: 'bg-white border rounded border-rose-200 text-rose-700 font-bold px-1.5 py-0.5',
-            isAlert: true,
-            severity: alert.severity,
-            dotColor: 'bg-rose-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'
-          };
-        } else if (alert.severity === 'high') {
-          return {
-            bg: 'bg-amber-50 shadow-[0_4px_15px_rgba(245,158,11,0.1)]',
-            border: 'border-amber-300 border-2',
-            text: 'text-amber-950 font-extrabold',
-            statusColor: 'bg-white border rounded border-amber-200 text-amber-700 font-bold px-1.5 py-0.5',
-            isAlert: true,
-            severity: alert.severity,
-            dotColor: 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]'
-          };
-        }
+    const theme: Record<string, { active: string; inactive: string; text: string; dot: string }> = {
+      blower: { 
+        active: 'bg-gradient-to-br from-[#080e1a] to-[#03060a] border-[#0a1121] shadow-[inset_0_1px_rgba(255,255,255,0.05),_0_4px_15px_rgba(0,0,0,0.6)]',
+        inactive: 'bg-[#080e1a]/80 border-[#0a1121] shadow-[0_2px_5px_rgba(0,0,0,0.3)]',
+        text: 'text-[#00e1ff]',  
+        dot: 'bg-[#00e1ff] shadow-[0_0_8px_rgba(0,225,255,0.8)]'
+      },
+      intake: { 
+        active: 'bg-gradient-to-br from-[#853400] to-[#3a1500] border-[#933d00] shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_4px_15px_rgba(0,0,0,0.6)]',
+        inactive: 'bg-[#3a1500]/80 border-[#4a1c00] shadow-[0_2px_5px_rgba(0,0,0,0.3)]',
+        text: 'text-[#00ffd5]',
+        dot: 'bg-[#00ffd5] shadow-[0_0_8px_rgba(0,255,213,0.8)]'
+      },
+      return: { 
+        active: 'bg-gradient-to-br from-[#853400] to-[#3a1500] border-[#933d00] shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_4px_15px_rgba(0,0,0,0.6)]',
+        inactive: 'bg-[#3a1500]/80 border-[#4a1c00] shadow-[0_2px_5px_rgba(0,0,0,0.3)]',
+        text: 'text-[#00ffd5]',
+        dot: 'bg-[#00ffd5] shadow-[0_0_8px_rgba(0,255,213,0.8)]'
+      },
+      dosing: { 
+        active: 'bg-gradient-to-br from-[#123bb0] to-[#081a54] border-[#184bd6] shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_4px_15px_rgba(0,0,0,0.6)]',
+        inactive: 'bg-[#081a54]/80 border-[#0c2473] shadow-[0_2px_5px_rgba(0,0,0,0.3)]',
+        text: 'text-[#00ffd5]',
+        dot: 'bg-[#00ffd5] shadow-[0_0_8px_rgba(0,255,213,0.8)]'
+      },
+      valve: { 
+        active: 'bg-gradient-to-br from-[#530cab] to-[#270354] border-[#6b15d6] shadow-[inset_0_1px_rgba(255,255,255,0.1),_0_4px_15px_rgba(0,0,0,0.6)]',
+        inactive: 'bg-[#270354]/80 border-[#390678] shadow-[0_2px_5px_rgba(0,0,0,0.3)]',
+        text: 'text-[#00ffd5]',
+        dot: 'bg-[#00ffd5] shadow-[0_0_8px_rgba(0,255,213,0.8)]'
       }
-
-      return {
-        bg: isEnabled ? colors.active : colors.inactive,
-        border: isEnabled ? "border-2 " + colors.border : "border border-slate-200 shadow-sm",
-        text: "font-extrabold " + (isEnabled ? "" : "text-slate-600"),
-        statusColor: isEnabled ? 'bg-white rounded border border-emerald-200 text-emerald-700 font-bold px-1.5 py-0.5' : 'bg-slate-50 rounded border border-slate-200 text-slate-500 font-bold px-1.5 py-0.5',
-        dotColor: isEnabled ? 'bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.8)]' : 'bg-slate-400 opacity-50',
-        isAlert: false
-      };
     };
 
+    const colors = theme[equipment];
+
+    return {
+      bg: isEnabled ? colors.active : colors.inactive,
+      border: isEnabled ? 'border border-t-white/10' : 'border border-white/5 opacity-90',
+      text: 'text-white font-black drop-shadow-md',
+      statusColor: isEnabled ? 'bg-black/40 border-black/50 ' + colors.text + ' border font-bold' : 'bg-black/20 border-black/30 text-white/50 border font-bold',
+      dotColor: isEnabled ? colors.dot : 'bg-slate-500/50',
+      isAlert: !!alert,
+      severity: alert?.severity
+    };
+  };
   const sections = ['All', ...Array.from(new Set(sensors.map(s => s.plant_section)))];
 
   const filteredSensors = sensors.filter(sensor => {
