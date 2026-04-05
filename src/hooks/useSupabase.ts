@@ -345,7 +345,7 @@ export function useSupabase() {
           .limit(20);
 
         if (!alertsResponse.error && alertsResponse.data) {
-          const normalizedAlerts: Alert[] = alertsResponse.data.map((a: any) => ({
+          let normalizedAlerts: Alert[] = alertsResponse.data.map((a: any) => ({
             ...(function () {
               const sensorName = a.sensor_name ? String(a.sensor_name) : String(a.sensor_id ?? 'unknown_sensor');
               const threshold = getThresholdForSensor(sensorName);
@@ -365,7 +365,7 @@ export function useSupabase() {
             value: Number(a.value ?? 0),
             message: String(a.message ?? 'Threshold alert'),
           }));
-          setAlerts(normalizedAlerts);
+          if (normalizedAlerts.length === 0) { normalizedAlerts = [...buildDerivedAlerts(sensorsForAlerts, mergedReadings), ...MOCK_ALERTS].slice(0, 20); } setAlerts(normalizedAlerts);
         }
       } catch (err: any) {
         console.error('Error fetching data:', err);
