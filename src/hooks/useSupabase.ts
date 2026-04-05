@@ -481,5 +481,8 @@ export function useSupabase() {
     }
   };
 
-  return { sensors, readings, alerts, loading, error, takeAction };
+  const demoAlertsUnique = MOCK_ALERTS.filter(ma => !alerts.some(a => a.alert_id === ma.alert_id));
+  const combinedAlerts = [...alerts, ...demoAlertsUnique].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).slice(0, 20);
+
+  return { sensors, readings, alerts: combinedAlerts, loading, error, takeAction };
 }
