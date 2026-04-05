@@ -237,7 +237,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
                   })()
                 )} />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {blowerAlert ? `${blowerAlert.severity} ` : ''}{autoSwitchEnabled ? ON : OFF}
+                  {blowerAlert ? `${blowerAlert.severity} ` : ''}{autoSwitchEnabled ? 'ON' : 'OFF'}
                 </span>
               </div>
             </div>
@@ -294,7 +294,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
                   })()
                 )} />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {intakePumpAlert ? `${intakePumpAlert.severity} ` : ''}{intakePumpEnabled ? ON : OFF}
+                  {intakePumpAlert ? `${intakePumpAlert.severity} ` : ''}{intakePumpEnabled ? 'ON' : 'OFF'}
                 </span>
               </div>
             </div>
@@ -351,7 +351,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
                   })()
                 )} />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {returnPumpAlert ? `${returnPumpAlert.severity} ` : ''}{returnPumpEnabled ? ON : OFF}
+                  {returnPumpAlert ? `${returnPumpAlert.severity} ` : ''}{returnPumpEnabled ? 'ON' : 'OFF'}
                 </span>
               </div>
             </div>
@@ -408,7 +408,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
                   })()
                 )} />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {dosingPumpAlert ? `${dosingPumpAlert.severity} ` : ''}{dosingPumpEnabled ? ON : OFF}
+                  {dosingPumpAlert ? `${dosingPumpAlert.severity} ` : ''}{dosingPumpEnabled ? 'ON' : 'OFF'}
                 </span>
               </div>
             </div>
@@ -465,7 +465,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
                   })()
                 )} />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {valveAlert ? `${valveAlert.severity} ` : ''}{valveControlEnabled ? OPEN : CLOSED}
+                  {valveAlert ? `${valveAlert.severity} ` : ''}{valveControlEnabled ? 'OPEN' : 'CLOSED'}
                 </span>
               </div>
             </div>
@@ -760,4 +760,5 @@ const ValveIcon: React.FC<{ isActive: boolean; hasMalfunction?: boolean }> = ({ 
     )}
   </svg>
 );
+
 
