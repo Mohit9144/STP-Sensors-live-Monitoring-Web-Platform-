@@ -281,6 +281,71 @@ export const SensorsManagement: React.FC = () => {
         </div>
       </div>
 
+      {/* NEW SENSOR LOGS SECTION */}
+      <div className="panel-surface mt-8 overflow-hidden">
+        <div className="p-4 border-b border-slate-200/60 flex items-center justify-between">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900">Recent Sensor Logs</h3>
+            <p className="text-xs text-slate-500">Live stream of incoming sensor readings across the plant.</p>
+          </div>
+        </div>
+        <div className="overflow-x-auto max-h-[400px] overflow-y-auto">
+          <table className="w-full text-left border-collapse">
+            <thead className="sticky top-0 bg-slate-50/95 backdrop-blur-sm z-10 shadow-sm border-b border-slate-200/60">
+              <tr>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Time</th>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Sensor Name</th>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Section</th>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Value</th>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Quality</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {Object.values(readings)
+                .flat()
+                .sort((a, b) => new Date(b.event_time).getTime() - new Date(a.event_time).getTime())
+                .slice(0, 50)
+                .map((reading, idx) => (
+                  <tr key={`${reading.sensor_name}-${reading.event_time}-${idx}`} className="hover:bg-slate-50/50 transition-colors group">
+                    <td className="px-6 py-3">
+                      <p className="text-xs font-bold text-slate-900">{format(new Date(reading.event_time), 'HH:mm:ss')}</p>
+                      <p className="text-[10px] text-slate-500">{format(new Date(reading.event_time), 'MMM dd, yyyy')}</p>
+                    </td>
+                    <td className="px-6 py-3">
+                      <span className="text-xs font-bold text-slate-700">{reading.sensor_name}</span>
+                    </td>
+                    <td className="px-6 py-3">
+                      <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-md font-medium">{reading.plant_section}</span>
+                    </td>
+                    <td className="px-6 py-3 text-right">
+                      <span className="text-sm font-bold text-slate-900">{Number(reading.value).toFixed(2)}</span>
+                      <span className="text-[10px] text-slate-500 ml-1">{reading.unit}</span>
+                    </td>
+                    <td className="px-6 py-3 text-right">
+                      {reading.quality_flag === 'good' ? (
+                        <span className="inline-flex items-center justify-center px-2 py-1 rounded-md bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-wider">
+                          Good
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center justify-center px-2 py-1 rounded-md bg-rose-50 text-rose-700 text-[10px] font-bold uppercase tracking-wider">
+                          Bad
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              {Object.values(readings).flat().length === 0 && (
+                <tr>
+                  <td colSpan={5} className="px-6 py-8 text-center text-sm text-slate-500">
+                    No sensor logs recorded yet.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {actionModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-900/35 backdrop-blur-[1px]" onClick={() => setActionModal(null)} />
