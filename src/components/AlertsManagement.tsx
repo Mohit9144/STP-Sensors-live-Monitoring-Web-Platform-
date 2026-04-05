@@ -247,6 +247,65 @@ export const AlertsManagement: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+
+      {/* NEW SYSTEM & ALERT LOGS TABLE */}
+      <div className="panel-surface mt-8 overflow-hidden">
+        <div className="p-4 border-b border-slate-200/60 flex items-center justify-between">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900">Recent Alert Logs</h3>
+            <p className="text-xs text-slate-500">Live chronological record of all system alerts, failures, and warnings.</p>
+          </div>
+        </div>
+        <div className="overflow-x-auto max-h-[400px] overflow-y-auto">
+          <table className="w-full text-left border-collapse">
+            <thead className="sticky top-0 bg-slate-50/95 backdrop-blur-sm z-10 shadow-sm border-b border-slate-200/60">
+              <tr>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Time</th>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Severity</th>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Sensor Name</th>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Message</th>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Value recorded</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {alerts.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="px-6 py-8 text-center text-sm text-slate-500">
+                    No alert logs recorded yet. System is operating normally.
+                  </td>
+                </tr>
+              ) : (
+                alerts.map((alert, idx) => (
+                  <tr key={`${alert.alert_id}-${idx}`} className="hover:bg-slate-50/50 transition-colors group">
+                    <td className="px-6 py-3 min-w-[120px]">
+                      <p className="text-xs font-bold text-slate-900">{format(new Date(alert.timestamp), 'HH:mm:ss')}</p>
+                      <p className="text-[10px] text-slate-500">{format(new Date(alert.timestamp), 'MMM dd, yyyy')}</p>
+                    </td>
+                    <td className="px-6 py-3">
+                      <span className={cn(
+                        "inline-flex items-center px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider",
+                        alert.severity === 'critical' ? "bg-rose-100 text-rose-700 alert-blink" :
+                        alert.severity === 'high' ? "bg-orange-100 text-orange-700 alert-blink-soft" :
+                        "bg-amber-100 text-amber-700"
+                      )}>
+                        {alert.severity}
+                      </span>
+                    </td>
+                    <td className="px-6 py-3">
+                      <span className="text-xs font-bold text-slate-700">{alert.sensor_name || alert.sensor_id}</span>
+                    </td>
+                    <td className="px-6 py-3">
+                      <span className="text-xs text-slate-600 block w-full max-w-[300px] truncate" title={alert.message}>
+                        {alert.message}
+                      </span>
+                    </td>
+                    <td className="px-6 py-3 text-right">
+                      <span className="text-sm font-bold text-slate-900">{alert.value !== null && alert.value !== undefined ? alert.value.toFixed(2) : '---'}</span>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
