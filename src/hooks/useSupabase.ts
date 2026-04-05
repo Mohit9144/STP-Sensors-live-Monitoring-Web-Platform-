@@ -335,7 +335,7 @@ export function useSupabase() {
 
         await ensureSensorsLoaded(mergedReadings);
         const sensorsForAlerts = sensorsRef.current.length > 0 ? sensorsRef.current : MOCK_SENSORS;
-        setAlerts(buildDerivedAlerts(sensorsForAlerts, mergedReadings));
+        let currentAlerts = buildDerivedAlerts(sensorsForAlerts, mergedReadings); if (currentAlerts.length === 0) currentAlerts = MOCK_ALERTS; setAlerts(currentAlerts);
 
         // If alerts table exists, prefer it and enrich with sensor_name when available.
         const alertsResponse = await supabase
