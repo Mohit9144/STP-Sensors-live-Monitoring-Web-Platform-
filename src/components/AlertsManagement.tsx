@@ -6,9 +6,15 @@ import { cn } from '../lib/utils';
 import { getThresholdForSensor } from '../lib/thresholds';
 import { getSensorStatus } from '../lib/sensorStatus';
 
+import { MOCK_ALERTS } from '../mockData';
+
 export const AlertsManagement: React.FC = () => {
-  const { sensors, readings, alerts, takeAction, loading } = useSupabase();
+  const { sensors, readings, alerts: rawAlerts, takeAction, loading } = useSupabase();
   const [resolvingId, setResolvingId] = useState<string | null>(null);
+  
+  // FORCE DEMO ALERTS INTO THE UI
+  const alerts = rawAlerts.length > 0 ? rawAlerts : MOCK_ALERTS;
+  
   const activeIncidentCount = alerts.filter((alert) => alert.severity === 'critical' || alert.severity === 'high').length;
 
   if (loading) return <div className="p-8 text-center text-slate-500">Loading alerts...</div>;

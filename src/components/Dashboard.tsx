@@ -8,8 +8,12 @@ import { cn } from '../lib/utils';
 import { getThresholdForSensor } from '../lib/thresholds';
 import { getSensorStatus } from '../lib/sensorStatus';
 
+import { MOCK_ALERTS } from '../mockData';
+
 export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void }> = ({ setActiveSection }) => {
-  const { sensors, readings, alerts, loading, takeAction } = useSupabase();
+  const { sensors, readings, alerts: rawAlerts, loading, takeAction } = useSupabase();   
+  const alerts = rawAlerts.length > 0 ? rawAlerts : MOCK_ALERTS;
+  
   const [selectedSensorId, setSelectedSensorId] = useState<string | null>(null);
   const [filterSection, setFilterSection] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
