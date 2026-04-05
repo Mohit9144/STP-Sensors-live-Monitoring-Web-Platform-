@@ -221,7 +221,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
             </div>
             
             <div className="w-full mt-auto flex items-center justify-between z-10">
-              <span className="text-[11px] font-bold uppercase tracking-wider font-mono">Aeration Blower</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider font-mono">AUTO BLOWER</span>
               <div className={cn(
                 'inline-flex items-center gap-1.5 px-2 py-0.5 rounded shadow-inner backdrop-blur-md',
                 (() => {
@@ -237,7 +237,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
                   })()
                 )} />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {blowerAlert ? `${blowerAlert.severity} ` : ''}{autoSwitchEnabled ? 'On' : 'Off'}
+                  {blowerAlert ? `${blowerAlert.severity} ` : ''}{autoSwitchEnabled ? ON : OFF}
                 </span>
               </div>
             </div>
@@ -278,7 +278,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
             </div>
             
             <div className="w-full mt-auto flex items-center justify-between z-10">
-              <span className="text-[11px] font-bold uppercase tracking-wider font-mono">Intake Pump</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider font-mono">INTAKE PUMP</span>
               <div className={cn(
                 'inline-flex items-center gap-1.5 px-2 py-0.5 rounded shadow-inner backdrop-blur-md',
                 (() => {
@@ -294,7 +294,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
                   })()
                 )} />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {intakePumpAlert ? `${intakePumpAlert.severity} ` : ''}{intakePumpEnabled ? 'On' : 'Off'}
+                  {intakePumpAlert ? `${intakePumpAlert.severity} ` : ''}{intakePumpEnabled ? ON : OFF}
                 </span>
               </div>
             </div>
@@ -335,7 +335,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
             </div>
             
             <div className="w-full mt-auto flex items-center justify-between z-10">
-              <span className="text-[11px] font-bold uppercase tracking-wider font-mono">Return Pump</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider font-mono">RETURN PUMP</span>
               <div className={cn(
                 'inline-flex items-center gap-1.5 px-2 py-0.5 rounded shadow-inner backdrop-blur-md',
                 (() => {
@@ -351,7 +351,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
                   })()
                 )} />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {returnPumpAlert ? `${returnPumpAlert.severity} ` : ''}{returnPumpEnabled ? 'On' : 'Off'}
+                  {returnPumpAlert ? `${returnPumpAlert.severity} ` : ''}{returnPumpEnabled ? ON : OFF}
                 </span>
               </div>
             </div>
@@ -392,7 +392,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
             </div>
             
             <div className="w-full mt-auto flex items-center justify-between z-10">
-              <span className="text-[11px] font-bold uppercase tracking-wider font-mono">Dosing Pump</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider font-mono">DOSING PUMP</span>
               <div className={cn(
                 'inline-flex items-center gap-1.5 px-2 py-0.5 rounded shadow-inner backdrop-blur-md',
                 (() => {
@@ -408,7 +408,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
                   })()
                 )} />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {dosingPumpAlert ? `${dosingPumpAlert.severity} ` : ''}{dosingPumpEnabled ? 'On' : 'Off'}
+                  {dosingPumpAlert ? `${dosingPumpAlert.severity} ` : ''}{dosingPumpEnabled ? ON : OFF}
                 </span>
               </div>
             </div>
@@ -449,7 +449,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
             </div>
             
             <div className="w-full mt-auto flex items-center justify-between z-10">
-              <span className="text-[11px] font-bold uppercase tracking-wider font-mono">Valve Control</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider font-mono">VALVE CONTROL</span>
               <div className={cn(
                 'inline-flex items-center gap-1.5 px-2 py-0.5 rounded shadow-inner backdrop-blur-md',
                 (() => {
@@ -465,7 +465,7 @@ export const Dashboard: React.FC<{ setActiveSection?: (section: string) => void 
                   })()
                 )} />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {valveAlert ? `${valveAlert.severity} ` : ''}{valveControlEnabled ? 'Open' : 'Closed'}
+                  {valveAlert ? `${valveAlert.severity} ` : ''}{valveControlEnabled ? OPEN : CLOSED}
                 </span>
               </div>
             </div>
