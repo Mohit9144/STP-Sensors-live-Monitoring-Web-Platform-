@@ -315,3 +315,6 @@ export const AlertsManagement: React.FC = () => {
           </table>
         </div>
       </div>
+    </div>
+  );
+};
